@@ -23,17 +23,19 @@ import javax.swing.border.EmptyBorder;
 
 import com.mysql.cj.jdbc.CallableStatement;
 
+
 public class Costs<NewJPanel> extends JFrame {
 
 	protected static final int HIGHT = 0;
 	private JPanel contentPane;
 	private JTextField tax;
 	private JTextField rom;
-	private JTextField textField_2;
 
 	/**
 	 * Launch the application.
 	 */
+
+	
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
@@ -58,35 +60,25 @@ public class Costs<NewJPanel> extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
-		JLabel label = new JLabel("Tax:");
-		label.setFont(new Font("Tahoma", Font.BOLD, 17));
-		label.setBounds(47, 118, 103, 30);
-		contentPane.add(label);
+		JLabel lblTaxAddedTo = new JLabel("Tax added to totalcost");
+		lblTaxAddedTo.setFont(new Font("Tahoma", Font.BOLD, 13));
+		lblTaxAddedTo.setBounds(39, 211, 147, 30);
+		contentPane.add(lblTaxAddedTo);
 		
-		JLabel lblRoomtype = new JLabel("roomType");
-		lblRoomtype.setFont(new Font("Tahoma", Font.BOLD, 17));
-		lblRoomtype.setBounds(34, 180, 130, 30);
+		JLabel lblRoomtype = new JLabel("Room Type");
+		lblRoomtype.setFont(new Font("Tahoma", Font.BOLD, 13));
+		lblRoomtype.setBounds(66, 86, 130, 30);
 		contentPane.add(lblRoomtype);
 		
-		JLabel lblTotal = new JLabel("Total:");
-		lblTotal.setFont(new Font("Tahoma", Font.BOLD, 17));
-		lblTotal.setBounds(34, 221, 130, 30);
-		contentPane.add(lblTotal);
-		
 		tax = new JTextField();
-		tax.setBounds(208, 102, 182, 46);
+		tax.setBounds(229, 204, 182, 46);
 		contentPane.add(tax);
 		tax.setColumns(10);
 		
 		rom = new JTextField();
 		rom.setColumns(10);
-		rom.setBounds(208, 165, 182, 46);
+		rom.setBounds(229, 95, 182, 46);
 		contentPane.add(rom);
-		
-		textField_2 = new JTextField();
-		textField_2.setColumns(10);
-		textField_2.setBounds(208, 236, 182, 46);
-		contentPane.add(textField_2);
 		final TextField tf=new TextField();		   
 		JButton btnNewButton = new JButton("Total Cost");
 		btnNewButton.addActionListener(new ActionListener() {
@@ -99,11 +91,13 @@ public class Costs<NewJPanel> extends JFrame {
 				 java.sql.CallableStatement cs = con.prepareCall("{? = call taxsum(?)}");{
 					 cs.registerOutParameter(1, Types.INTEGER);
 					 cs.setString(2,rom.getText());
-		
+					
 				   
 				    cs.execute();
-				    String retValue = cs.getString(1); 
+				    String retValue = cs.getString(1);
+			
 				    tax.setText(retValue);
+				    
 				   cs.close();} 
 				
 				 
@@ -111,6 +105,7 @@ public class Costs<NewJPanel> extends JFrame {
 				}catch(SQLException e1) {
 				e1.printStackTrace();
 				}
+				
 		}});
 		btnNewButton.setFont(new Font("Tahoma", Font.PLAIN, 17));
 		btnNewButton.setBounds(166, 333, 123, 54);
@@ -122,7 +117,7 @@ public class Costs<NewJPanel> extends JFrame {
 				
 				tax.setText("");
 				rom.setText("");
-				textField_2.setText("");
+			
 				
 			}
 		});
@@ -163,6 +158,11 @@ public class Costs<NewJPanel> extends JFrame {
 		});
 		Back.setBounds(34, 352, 89, 23);
 		contentPane.add(Back);
+		
+		JLabel lblCosts = new JLabel("Costs");
+		lblCosts.setFont(new Font("Tahoma", Font.PLAIN, 17));
+		lblCosts.setBounds(272, 25, 53, 14);
+		contentPane.add(lblCosts);
 	}
 
 	protected Connection getConnection() {
